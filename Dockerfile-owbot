@@ -1,0 +1,7 @@
+FROM python:3.11
+COPY ./owner_bot.py .
+COPY ./requirements.txt .
+RUN pip3 install -r requirements.txt
+CMD ["python3", "owner_bot.py"]
+
+# docker run --rm -it --env-file .env client_bot:1.0

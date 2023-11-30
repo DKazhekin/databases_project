@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  db:
+    image: db:1.0
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  client_bot:
+    image: client_bot:1.0
+    container_name: client_bot
+    environment:
+      BOT_TOKEN: ${CLIENT_BOT_TOKEN}
+      BOT_PASSWORD: ${PASSWORD}
+      BOT_USER: postgres
+      BOT_DATABASE: postgres
+      BOT_HOST: db
+    depends_on:
+      db:
+        condition: service_started
+
+  owner_bot:
+    image: owner_bot:1.0
+    container_name: owner_bot
+    environment:
+      BOT_OWNER_TOKEN: ${OWNER_BOT_TOKEN}
+      BOT_PASSWORD: ${PASSWORD}
+      BOT_USER: postgres
+      BOT_DATABASE: postgres
+      BOT_HOST: db
+    depends_on:
+      db:
+        condition: service_started
+
+  courier_bot:
+    image: courier_bot:1.0
+    container_name: courier_bot
+    environment:
+      BOT_COURIER_TOKEN: ${COURIER_BOT_TOKEN}
+      BOT_PASSWORD: ${PASSWORD}
+      BOT_USER: postgres
+      BOT_DATABASE: postgres
+      BOT_HOST: db
+    depends_on:
+      db:
+        condition: service_started
+
+
+
+# Устанавливаем Volume db_data, чтобы достигнуть персистентности данных
+volumes:
+  db_data:
+
+# Сеть можно не устнавливать, так как все контейнеры запускаются из одного docker-compose.yaml файла, поэтому сеть будет общая
