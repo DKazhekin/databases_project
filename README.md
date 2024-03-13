@@ -12,3 +12,5 @@
 * Git clone the repository
 * Create your own ```.env``` secret file and define such variables: ```CLIENT_BOT_TOKEN=...``` ```OWNER_BOT_TOKEN=...``` ```COURIER_BOT_TOKEN=...``` ```PASSWORD=... - Password for Postgresql Database```
 * Run ```docker-compose up``` command
+## Database Scheme
+![DBScheme](/assets/ShopDBscheme.png)
